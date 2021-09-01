@@ -35,12 +35,14 @@ class HasPredicateVisitor extends ElementVisitorBase {
 					TriplePath t = triples.next();
 					
 					Path p = t.getPath();
-					HasPredicatePathVisitor v = new HasPredicatePathVisitor(this.predicate);
-					p.visit(v);
-					if(v.isFound()) {
-						this.found = true;
+					// handle cases where the path is null because it is a variable
+					if(p != null) {
+						HasPredicatePathVisitor v = new HasPredicatePathVisitor(this.predicate);
+						p.visit(v);
+						if(v.isFound()) {
+							this.found = true;
+						}
 					}
-
 				}							
 			}
 		}
