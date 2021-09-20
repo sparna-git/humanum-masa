@@ -21,7 +21,7 @@
         <springsecurity.version>4.2.3.RELEASE</springsecurity.version>
 		<jackson.version>2.9.3</jackson.version>
 		<rdf4j.version>2.4.2</rdf4j.version>
-		<jena.version>3.8.0</jena.version>
+		<jena.version>4.2.0</jena.version>
 		<lucene.version>7.4.0</lucene.version>
     </properties>
 
