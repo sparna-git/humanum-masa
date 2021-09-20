@@ -32,8 +32,7 @@
             dcterms:creator "LAT"@fr;
             dcterms:source "Base ARSOL";
             # collection
-            dcterms:subject <http://openarchaeo.huma-num.fr/collections/lat> ;
-            dcterms:subject <http://openarchaeo.huma-num.fr/collections/valides> ;
+            dcterms:subject <http://openarchaeo.huma-num.fr/collections/all> ;
             # source endpoint and graph
             void:sparqlEndpoint <http://localhost:7200/repositories/openarchaeo> ;
             fed-config:sparqlGraph <http://arsol.univ-tours.fr> ;
@@ -47,8 +46,7 @@
             dcterms:title "Aerba"@fr;
             dcterms:title "Aerba"@en;
             # collection
-            dcterms:subject <http://openarchaeo.huma-num.fr/collections/lat> ;
-            dcterms:subject <http://openarchaeo.huma-num.fr/collections/valides> ;
+            dcterms:subject <http://openarchaeo.huma-num.fr/collections/all> ;
             # source endpoint and graph
             void:sparqlEndpoint <http://localhost:7200/repositories/openarchaeo> ;
             fed-config:sparqlGraph <http://aerba.univ-tours.fr> ;
@@ -60,38 +58,33 @@
             # source labels
             dcterms:title "SRA-IDF";
             # collection
-            dcterms:subject <http://openarchaeo.huma-num.fr/collections/sra-idf> ;
-            dcterms:subject <http://openarchaeo.huma-num.fr/collections/tests> ;
+            dcterms:subject <http://openarchaeo.huma-num.fr/collections/all> ;
             # source endpoint and graph
             void:sparqlEndpoint <http://localhost:7200/repositories/openarchaeo> ;
             fed-config:sparqlGraph <https://bibnum-sra-idf.huma-num.fr> ;
         ] ;
+        sd:namedGraph [
+            a sd:NamedGraph ;
+            # source IRI
+            sd:name <http://openarchaeo.huma-num.fr/federation/sources/iceramm> ;
+            # source labels
+            dcterms:title "ICERAMM";
+            # collection
+            dcterms:subject <http://openarchaeo.huma-num.fr/collections/inventaire-de-site> ;
+            # source endpoint and graph
+            void:sparqlEndpoint <http://localhost:7200/repositories/openarchaeo> ;
+            fed-config:sparqlGraph <http://iceramm.huma-num.fr> ;
+        ] ;
     ] .
+
+# Section qui liste les Collections de Sources dans OpenArchaeo
 
 <http://openarchaeo.huma-num.fr/collections> a skos:ConceptScheme ;
     skos:prefLabel "Collections des sources de données OpenArchaeo"@fr
     .
 
-<http://openarchaeo.huma-num.fr/collections/lat> a skos:Concept ;
-    skos:prefLabel "Jeux de données du LAT"@fr ;
-    skos:prefLabel "LAT Dataset"@en ;
-    skos:inScheme <http://openarchaeo.huma-num.fr/collections> ;
-    .
-
-<http://openarchaeo.huma-num.fr/collections/sraidf> a skos:Concept ;
-    skos:prefLabel "Jeux de données du SRA-IDF"@fr ;
-    skos:prefLabel "Dataset SRA-IDF"@en ;
-    skos:inScheme <http://openarchaeo.huma-num.fr/collections> ;
-    .
-
-<http://openarchaeo.huma-num.fr/collections/valides> a skos:Concept ;
-    skos:prefLabel "Jeux de données validés"@fr ;
-    skos:prefLabel "Validates"@en ;
-    skos:inScheme <http://openarchaeo.huma-num.fr/collections> ;
-    .
-
-<http://openarchaeo.huma-num.fr/collections/tests> a skos:Concept ;
-    skos:prefLabel "Jeux de données en test"@fr ;
-    skos:prefLabel "Testing"@en ;
+<http://openarchaeo.huma-num.fr/collections/all> a skos:Concept ;
+    skos:prefLabel "Jeux de données OpenArchaeo"@fr ;
+    skos:prefLabel "OpenArchaeo dataset"@en ;
     skos:inScheme <http://openarchaeo.huma-num.fr/collections> ;
     .

@@ -15,7 +15,9 @@ crm:E27_Site rdfs:subClassOf :Site .
 	crm:P53_has_former_or_current_location
 ) .
 
-:de_type owl:propertyChainAxiom (
+# Le type est sur l'event
+:site_de_type owl:propertyChainAxiom (
+	crm:P8i_witnessed
 	crm:P2_has_type
 ) .
 
@@ -64,6 +66,22 @@ crmarchaeo:A8_Stratigraphic_Unit rdfs:subClassOf :US .
 
 # date_de
 
+##### Entite_Archeologique et ses propriétés
+
+crmba:B1_Built_Work rdfs:subClassOf :Entite_Archeologique .
+
+# trouve_dans
+
+# date_de
+
+# interprete_comme
+
+# entite_archeologique_est_compose_de
+
+:entite_archeologique_est_compose_de owl:propertyChainAxiom (
+	crm:P46_is_composed_of
+) .
+
 ##### Fait et ses propriétés
 
 :Fait rdfs:subClassOf [
@@ -89,25 +107,6 @@ crmarchaeo:A8_Stratigraphic_Unit rdfs:subClassOf :US .
 ) .
 
 # trouve_dans
-
-##### Entite_Archeologique et ses propriétés
-
-crmba:B1_Built_Work rdfs:subClassOf :Entite_Archeologique .
-
-# trouve_dans
-
-# date_de
-
-# Note : cette definition s'ajoute a celle au-dessus
-:de_type owl:propertyChainAxiom (
-	crm:P101_had_as_general_use
-) .
-
-# entite_archeologique_est_compose_de
-
-:entite_archeologique_est_compose_de owl:propertyChainAxiom (
-	crm:P46_is_composed_of
-) .
 
 ##### Mur et ses propriétés
 
@@ -191,8 +190,12 @@ crm:E53_Place rdfs:subClassOf :Lieu .
 
 crm:E31_Document rdfs:subClassOf :Document .
 
-:document owl:propertyChainAxiom (
+:documente owl:propertyChainAxiom (
 	crm:P70_documents
+) .
+
+:documente_par owl:propertyChainAxiom (
+	crm:P70i_is_documented_in
 ) .
 
 :createur owl:propertyChainAxiom (
@@ -208,4 +211,8 @@ crm:E31_Document rdfs:subClassOf :Document .
 :date_creation owl:propertyChainAxiom (
 	crm:P4_has_time-span
 	crm:P82a_begin_of_the_begin
+) .
+
+:document_de_type owl:propertyChainAxiom (
+	crm:P2_has_type
 ) .
