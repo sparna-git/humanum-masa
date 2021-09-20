@@ -2,6 +2,11 @@
 	background-color: #ce5c5c;
 }
 
+/* fix hover color of language selection dropdown */
+.navbar .dropdown-menu a:hover {
+	color: #aaa !important;
+}
+
 
 #main-container {
 	margin-top: 2em;
@@ -33,3 +38,4 @@ footer {
 /* fix display problems in datatable search header */
 input[type="search"] { width: auto; }
 .yasr .dataTables_wrapper .dataTables_filter {white-space: nowrap;}
+

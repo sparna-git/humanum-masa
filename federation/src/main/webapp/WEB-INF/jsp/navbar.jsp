@@ -29,9 +29,11 @@
             <li class="nav-item ${param.active == 'api' ? 'active' : ''}">
                 <a class="nav-link" href="<c:url value="/api" />"><fmt:message key="navbar.api" />${param.active == 'api' ? '<span class="sr-only">(current)</span>' : ''}</a>
             </li>
+            <!--
             <li class="nav-item ${param.active == 'admin' ? 'active' : ''}">
                 <a class="nav-link" href="<c:url value="/admin" />"><fmt:message key="navbar.admin" />${param.active == 'admin' ? '<span class="sr-only">(current)</span>' : ''}</a>
             </li>
+            -->
         </ul>
         <!-- Links -->
         

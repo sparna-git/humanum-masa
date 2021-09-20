@@ -55,7 +55,7 @@ public class SessionFilter implements Filter {
 		
 		SessionData session = SessionData.get(request.getSession());
 		if(session == null) {
-			log.debug("No session data present. Will create it.");
+			log.debug("No session data present. Will create it with locale "+request.getLocale());
 			session = new SessionData();
 			session.store(request.getSession());
 			

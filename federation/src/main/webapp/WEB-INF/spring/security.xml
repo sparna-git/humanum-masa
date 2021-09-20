@@ -8,6 +8,8 @@
            http://www.springframework.org/schema/security
            http://www.springframework.org/schema/security/spring-security.xsd">
 	
+	<http pattern="/" security="none"/>
+	<http pattern="/resources**" security="none"/>
 	<http pattern="/login**" security="none"/>
 	<http pattern="/favicon.ico" security="none"/>
 
@@ -34,10 +36,10 @@
 			<xss-protection />
 		</headers>
 		
-		<session-management invalid-session-url="/">
+		<session-management invalid-session-url="/login">
 			<!--Adding max-sessions attribut to define the number of session.
 				A negative value enabled multiple sessions for user -->
-            <concurrency-control expired-url="/" max-sessions="-1"/>
+            <concurrency-control expired-url="/login" max-sessions="-1"/>
         </session-management>
 	</http>
  	

@@ -3,6 +3,11 @@
 	background-color:  #4B91D5;
 }
 
+/* fix hover color of language selection dropdown */
+.navbar .dropdown-menu a:hover {
+	color: #aaa !important;
+}
+
 .btn-group-vertical{
 	margin:auto;
 	text-align: center;	
