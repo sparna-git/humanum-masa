@@ -1,0 +1,1 @@
+mvn install:install-file -Dfile=fedx-5.2.0-SNAPSHOT.jar -DgroupId=com.veritas.fops -DartifactId=fedx -Dversion=5.2.0-SNAPSHOT -Dpackaging=jar
