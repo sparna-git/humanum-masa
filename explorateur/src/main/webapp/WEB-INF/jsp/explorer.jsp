@@ -285,7 +285,7 @@
 		 var sources = sourcesUrls.join(" ");
 
 		 $('#sparnatural').Sparnatural({
-			config: 'resources/config/spec-search.json',
+			config: 'resources/config/sparnatural-config.ttl',
 			// config: 'sparnatural-config.json',
 			language: '${sessionScope['fr.humanum.openarchaeo.SessionData'].userLocale.language}',
 			addDistinct: true,
