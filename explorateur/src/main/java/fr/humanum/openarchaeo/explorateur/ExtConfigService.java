@@ -19,6 +19,7 @@ public class ExtConfigService {
 
 	public static String FEDERATION_SERVICE_URL = 			"federation.service.url";
 	public static String FEDERATION_SERVICE_API_SOURCES = 	"federation.service.api.sources";
+	public static String EXPLORATEUR_BASE_URL = 			"explorateur.base.url";
 	public static String EXPLORATEUR_PATH_LABEL			=	"explorateur.path.label";
 	public static String EXPLORATEUR_PATH_LATITUDE		=	"explorateur.path.latitude";
 	public static String EXPLORATEUR_PATH_LONGITUDE		=	"explorateur.path.longitude";

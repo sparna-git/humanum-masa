@@ -1,4 +1,7 @@
+<!--  
 <!DOCTYPE html>
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.0//EN" "http://www.w3.org/MarkUp/DTD/xhtml-rdfa-1.dtd">
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
@@ -12,7 +15,16 @@
 <c:set var="data" value="${requestScope['sourcesDefinition']}" />
 <c:set var="lang" value="${sessionScope['fr.humanum.openarchaeo.SessionData'].userLocale.language}" />
 
-<html>
+<html 
+xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+xmlns:dc="http://purl.org/dc/elements/1.1/"
+xmlns:dcterms="http://purl.org/dc/terms/"
+xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+xmlns:foaf="http://xmlns.com/foaf/0.1/"
+>
+
 <head>
 <title><fmt:message key="window.app" /> | <fmt:message key="sources.window.title" /></title>
 <meta charset="utf-8">
@@ -70,20 +82,23 @@
 
 {{for items}}
 
-	<div class="col-4" id="source{{:#index}}">
+	<div class="col-3" id="source{{:#index}}">
 		<div class="card sourceCard">
-		  <div class="card-header sourceCardHeader">
-			  <h4 class="card-title"><input type="checkbox" class="selectSourceCheckbox" data-uri="{{:sourceString}}" data-endpoint="{{:endpoint}}" />&nbsp;{{:title}}</h4>
-			  <p><em>{{:shortDesc}}</em></p>
-		  </div> <!-- / .card-header -->
-		  <div class="card-body">
-    		<ul class="fa-ul">
-				<li><i class="fa-li fal fa-angle-right"></i><fmt:message key="sources.desc.spatial" /> : <ul class="inline-list">{{for spatial}}<li>{{:}}</li>{{/for}}</ul></li>
-				<li><i class="fa-li fal fa-angle-right"></i><fmt:message key="sources.desc.temporal" /> : <fmt:message key="sources.desc.temporal.from" /> {{:startYear}} <fmt:message key="sources.desc.temporal.to" /> {{:endYear}}</li>
-				<li><i class="fa-li fal fa-angle-right"></i><fmt:message key="sources.desc.keywords" /> : <ul class="inline-list">{{for keywords}}<li>{{:}}</li>{{/for}}</ul></li>
-				<li><i class="fa-li fal fa-angle-right"></i><fmt:message key="sources.desc.dcterms_subject" /> : <ul class="inline-list">{{for subject}}<li>{{:}}</li>{{/for}}</ul></li>
-			</ul>
-			<smaller><a data-toggle="collapse" href="#source{{:#index}}_details"><fmt:message key="sources.desc.details" />&nbsp;<i class="fal fa-angle-down"></i></a></smaller>
+			<div class="card-header sourceCardHeader">
+				<h4 class="card-title"><input type="checkbox" class="selectSourceCheckbox" data-uri="{{:sourceString}}" data-endpoint="{{:endpoint}}" />&nbsp;{{:title}}</h4>
+				<p><em>{{:shortDesc}}</em></p>			 
+		  	</div> <!-- / .card-header -->
+			
+		   	<div>	
+				<smaller><a data-toggle="collapse" href="#source{{:#index}}_details"><fmt:message key="sources.desc.details" />&nbsp;<i class="fal fa-angle-down"></i></a></smaller>					  
+		  		<div  class="collapse card-body" id="source{{:#index}}_details">
+    				<strong><fmt:message key="sources.desc.spatial" /> :</strong><br> <ul class="inline-list">{{for spatial}}<li>{{:}}</li>{{/for}}</ul></li><br>
+					<strong><fmt:message key="sources.desc.temporal" /> :</strong><br> <fmt:message key="sources.desc.temporal.from" /> {{:startYear}} <fmt:message key="sources.desc.temporal.to" /> {{:endYear}}</li><br>
+					<strong><fmt:message key="sources.desc.keywords" /> :</strong><br> <ul class="inline-list">{{for keywords}}<li>{{:}}</li>{{/for}}</ul></li><br>
+					<strong><fmt:message key="sources.desc.dcterms_subject" /> :</strong><br> <ul class="inline-list">{{for subject}}<li>{{:}}</li>{{/for}}</ul></li>
+				</div>
+			</div>
+			<!--
 			<div class="collapse" id="source{{:#index}}_details">
 				<ul class="fa-ul">
 					<li><i class="fa-li fal fa-angle-right"></i><fmt:message key="sources.desc.dcat_contactPoint" /> : {{if contact && (contact.indexOf('http') == 0) }}<a href="{{:contact}}">{{:contact}}</a>{{else contact && (contact.indexOf('mailto') == 0)}}<a href="{{:contact}}">{{:contact.substring(7)}}</a>{{else}}{{:contact}}{{/if}}</li>
@@ -93,7 +108,7 @@
 					<li><i class="fa-li fal fa-angle-right"></i><fmt:message key="sources.desc.dcterms_source" /> : {{if source && (source.indexOf('http') == 0 || source.indexOf('mailto') == 0) }}<a href="{{:source}}">{{:source}}</a>{{else}}{{:source}}{{/if}}</li>
 					<li><i class="fa-li fal fa-angle-right"></i><fmt:message key="sources.desc.dcterms_license" /> : {{if license && (license.indexOf('http') == 0 || license.indexOf('mailto') == 0) }}<a href="{{:license}}">{{:license}}</a>{{else}}{{:license}}{{/if}}</li>
 				</ul>
-			</div>
+			</div> -->
 		  </div> <!-- / .card-body -->
 		</div> 
 	</div>
@@ -101,9 +116,8 @@
 {{else}}
   <div class="col-12"><h4><fmt:message key="sources.result.nomatching" /></h4></div>
 {{/for}}
-
-
 </script>
+
 
 </head>
 
@@ -148,7 +162,7 @@
 											<div class="row no-gutters" id="sourcesResults">
 								    			<c:forEach items="${data}" var="source" varStatus="i">
 								    				<div class="col-4">
-									    				<div class="card sourceCard">
+									    				<div class="card sourceCard ">
 									    				  <div class="card-header sourceCardHeader" id="heading${i.index}">
 									    				  	<div class="row">
 									    				  		<div class="col-sm-10">
@@ -157,9 +171,9 @@
 									    				  		</div>
 									    				  	</div>
 									    				  </div> <!-- / .card-header -->
-														  <div class="card-body">
+														 <div class="card-body">
 												    		Loading data...
-														  </div> <!-- / .card-body -->
+														  </div> <!--  / .card-body -->
 														</div> 
 													</div>
 												</c:forEach>
@@ -184,9 +198,6 @@
 									</div>
 								</div>
 				    		</div>
-				    		
-				    		
-				    		
 				    </div>
 				  </div>
 				</div>

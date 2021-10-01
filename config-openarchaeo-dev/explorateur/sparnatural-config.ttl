@@ -1,0 +1,412 @@
+@prefix : <http://www.openarchaeo.fr/explorateur/onto#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://www.openarchaeo.fr/explorateur/onto> .
+
+<http://www.openarchaeo.fr/explorateur/onto> rdf:type owl:Ontology ;
+                                              owl:imports <http://data.sparna.fr/ontologies/sparnatural-config-core> ,
+                                                          <http://data.sparna.fr/ontologies/sparnatural-config-datasources> .
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://www.openarchaeo.fr/explorateur/onto#a_cree
+:a_cree rdf:type owl:ObjectProperty ;
+        rdfs:subPropertyOf <http://data.sparna.fr/ontologies/sparnatural-config-core#AutocompleteProperty> ;
+        rdfs:domain :Acteur ;
+        rdfs:range :Document ;
+        rdfs:label "auteur de"@fr ,
+                   "author of"@en .
+
+
+###  http://www.openarchaeo.fr/explorateur/onto#a_etudie
+:a_etudie rdf:type owl:ObjectProperty ;
+          rdfs:subPropertyOf <http://data.sparna.fr/ontologies/sparnatural-config-core#AutocompleteProperty> ;
+          rdfs:domain :Acteur ;
+          rdfs:range :Site ;
+          rdfs:label "a étudié"@fr ,
+                     "studied"@en .
+
+
+###  http://www.openarchaeo.fr/explorateur/onto#a_trouve
+:a_trouve rdf:type owl:ObjectProperty ;
+          rdfs:subPropertyOf <http://data.sparna.fr/ontologies/sparnatural-config-core#AutocompleteProperty> ;
+          rdfs:domain :Site ;
+          rdfs:range [ rdf:type owl:Class ;
+                       owl:unionOf ( :Entite_Archeologique
+                                     :Fait
+                                     :Mobilier
+                                     :Mur
+                                     :Sepulture
+                                     :US
+                                   )
+                     ] ;
+          rdfs:label "a trouvé"@fr ,
+                     "has found"@en .
+
+
+###  http://www.openarchaeo.fr/explorateur/onto#contient
+:contient rdf:type owl:ObjectProperty ;
+          rdfs:subPropertyOf <http://data.sparna.fr/ontologies/sparnatural-config-core#AutocompleteProperty> ;
+          rdfs:domain :US ;
+          rdfs:range :Mobilier ;
+          rdfs:label "contains"@en ,
+                     "contient"@fr .
+
+
+###  http://www.openarchaeo.fr/explorateur/onto#createur
+:createur rdf:type owl:ObjectProperty ;
+          rdfs:subPropertyOf <http://data.sparna.fr/ontologies/sparnatural-config-core#ListProperty> ;
+          rdfs:domain :Document ;
+          rdfs:range :Acteur ;
+          rdfs:label "a pour auteur"@fr ,
+                     "has author"@en .
+
+
+###  http://www.openarchaeo.fr/explorateur/onto#date_creation
+:date_creation rdf:type owl:ObjectProperty ;
+               rdfs:subPropertyOf <http://data.sparna.fr/ontologies/sparnatural-config-core#TimeProperty-Date> ;
+               rdfs:domain :Document ;
+               rdfs:range :Temps ;
+               rdfs:label "created at"@en ,
+                          "créé à"@fr .
+
+
+###  http://www.openarchaeo.fr/explorateur/onto#date_de
+:date_de rdf:type owl:ObjectProperty ;
+         rdfs:subPropertyOf <http://data.sparna.fr/ontologies/sparnatural-config-core#TimeProperty-Period> ;
+         rdfs:domain [ rdf:type owl:Class ;
+                       owl:unionOf ( :Entite_Archeologique
+                                     :Fait
+                                     :Mobilier
+                                     :Mur
+                                     :Sepulture
+                                     :Site
+                                     :US
+                                   )
+                     ] ;
+         rdfs:range :Temps ;
+         rdfs:label "dated from"@en ,
+                    "daté de"@fr .
+
+
+###  http://www.openarchaeo.fr/explorateur/onto#document_de_type
+:document_de_type rdf:type owl:ObjectProperty ;
+                  rdfs:subPropertyOf <http://data.sparna.fr/ontologies/sparnatural-config-core#ListProperty> ;
+                  rdfs:domain :Document ;
+                  rdfs:range :Type ;
+                  rdfs:label "de type"@fr ,
+                             "has type"@en .
+
+
+###  http://www.openarchaeo.fr/explorateur/onto#documente
+:documente rdf:type owl:ObjectProperty ;
+           rdfs:subPropertyOf <http://data.sparna.fr/ontologies/sparnatural-config-core#AutocompleteProperty> ;
+           rdfs:domain :Document ;
+           rdfs:range [ rdf:type owl:Class ;
+                        owl:unionOf ( :Entite_Archeologique
+                                      :Fait
+                                      :Mobilier
+                                      :Mur
+                                      :Sepulture
+                                      :Site
+                                      :US
+                                    )
+                      ] ;
+           rdfs:label "documente"@fr ,
+                      "documents"@en .
+
+
+###  http://www.openarchaeo.fr/explorateur/onto#documente_par
+:documente_par rdf:type owl:ObjectProperty ;
+               rdfs:subPropertyOf <http://data.sparna.fr/ontologies/sparnatural-config-core#AutocompleteProperty> ;
+               rdfs:domain [ rdf:type owl:Class ;
+                             owl:unionOf ( :Entite_Archeologique
+                                           :Fait
+                                           :Mobilier
+                                           :Mur
+                                           :Sepulture
+                                           :Site
+                                           :US
+                                         )
+                           ] ;
+               rdfs:range :Document ;
+               rdfs:label "documented by"@en ,
+                          "documenté par"@fr .
+
+
+###  http://www.openarchaeo.fr/explorateur/onto#entite_archeologique_est_compose_de
+:entite_archeologique_est_compose_de rdf:type owl:ObjectProperty ;
+                                     rdfs:subPropertyOf <http://data.sparna.fr/ontologies/sparnatural-config-core#AutocompleteProperty> ;
+                                     rdfs:domain :Entite_Archeologique ;
+                                     rdfs:range [ rdf:type owl:Class ;
+                                                  owl:unionOf ( :Fait
+                                                                :Mur
+                                                                :Sepulture
+                                                              )
+                                                ] ;
+                                     rdfs:label "est composée de"@fr ,
+                                                "is composed of"@en .
+
+
+###  http://www.openarchaeo.fr/explorateur/onto#est_compose_de
+:est_compose_de rdf:type owl:ObjectProperty ;
+                rdfs:subPropertyOf <http://data.sparna.fr/ontologies/sparnatural-config-core#AutocompleteProperty> ;
+                rdfs:domain [ rdf:type owl:Class ;
+                              owl:unionOf ( :Fait
+                                            :Mur
+                                            :Sepulture
+                                          )
+                            ] ;
+                rdfs:range [ rdf:type owl:Class ;
+                             owl:unionOf ( :Mobilier
+                                           :US
+                                         )
+                           ] ;
+                rdfs:label "composed of"@en ,
+                           "est composé de"@fr .
+
+
+###  http://www.openarchaeo.fr/explorateur/onto#etudie_par
+:etudie_par rdf:type owl:ObjectProperty ;
+            rdfs:subPropertyOf <http://data.sparna.fr/ontologies/sparnatural-config-core#ListProperty> ;
+            rdfs:domain :Site ;
+            rdfs:range :Acteur ;
+            rdfs:label "studied by"@en ,
+                       "étudié par"@fr .
+
+
+###  http://www.openarchaeo.fr/explorateur/onto#fait_en
+:fait_en rdf:type owl:ObjectProperty ;
+         rdfs:subPropertyOf <http://data.sparna.fr/ontologies/sparnatural-config-core#ListProperty> ;
+         rdfs:domain :Mobilier ;
+         rdfs:range :Type ;
+         rdfs:label "consists of"@en ,
+                    "fait en"@fr .
+
+
+###  http://www.openarchaeo.fr/explorateur/onto#fait_partie_de
+:fait_partie_de rdf:type owl:ObjectProperty ;
+                rdfs:subPropertyOf <http://data.sparna.fr/ontologies/sparnatural-config-core#AutocompleteProperty> ;
+                rdfs:domain :US ;
+                rdfs:range [ rdf:type owl:Class ;
+                             owl:unionOf ( :Fait
+                                           :Mur
+                                           :Sepulture
+                                         )
+                           ] ;
+                rdfs:label "fait partie de"@fr ,
+                           "forms part of"@en .
+
+
+###  http://www.openarchaeo.fr/explorateur/onto#interprete_comme
+:interprete_comme rdf:type owl:ObjectProperty ;
+                  rdfs:subPropertyOf <http://data.sparna.fr/ontologies/sparnatural-config-core#ListProperty> ;
+                  rdfs:domain [ rdf:type owl:Class ;
+                                owl:unionOf ( :Entite_Archeologique
+                                              :Fait
+                                              :US
+                                            )
+                              ] ;
+                  rdfs:range :Type ;
+                  rdfs:label "interpreted by"@en ,
+                             "interprété comme"@fr .
+
+
+###  http://www.openarchaeo.fr/explorateur/onto#site_de_type
+:site_de_type rdf:type owl:ObjectProperty ;
+              rdfs:subPropertyOf <http://data.sparna.fr/ontologies/sparnatural-config-core#ListProperty> ;
+              rdfs:domain :Site ;
+              rdfs:range :Type ;
+              rdfs:label "de type"@fr ,
+                         "has type"@en .
+
+
+###  http://www.openarchaeo.fr/explorateur/onto#situe_a
+:situe_a rdf:type owl:ObjectProperty ;
+         rdfs:subPropertyOf <http://data.sparna.fr/ontologies/sparnatural-config-core#AutocompleteProperty> ;
+         rdfs:domain :Site ;
+         rdfs:range :Lieu ;
+         rdfs:label "located in"@en ,
+                    "situé à"@fr .
+
+
+###  http://www.openarchaeo.fr/explorateur/onto#trouve_a
+:trouve_a rdf:type owl:ObjectProperty ;
+          rdfs:subPropertyOf <http://data.sparna.fr/ontologies/sparnatural-config-core#AutocompleteProperty> ;
+          rdfs:domain [ rdf:type owl:Class ;
+                        owl:unionOf ( :Entite_Archeologique
+                                      :Fait
+                                      :Mobilier
+                                      :Mur
+                                      :Sepulture
+                                      :US
+                                    )
+                      ] ;
+          rdfs:range :Site ;
+          rdfs:label "found in"@en ,
+                     "trouvé à"@fr .
+
+
+###  http://www.openarchaeo.fr/explorateur/onto#trouve_dans
+:trouve_dans rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf <http://data.sparna.fr/ontologies/sparnatural-config-core#AutocompleteProperty> ;
+             rdfs:domain :Mobilier ;
+             rdfs:range :US ;
+             rdfs:label "found in"@en ,
+                        "trouvé dans"@fr .
+
+
+###  http://www.openarchaeo.fr/explorateur/onto#utilise_pour
+:utilise_pour rdf:type owl:ObjectProperty ;
+              rdfs:subPropertyOf <http://data.sparna.fr/ontologies/sparnatural-config-core#ListProperty> ;
+              rdfs:domain :Mobilier ;
+              rdfs:range :Type ;
+              rdfs:label "function is"@en ,
+                         "utilisé pour"@fr .
+
+
+###  http://www.w3.org/2004/02/skos/core#prefLabel
+<http://www.w3.org/2004/02/skos/core#prefLabel> rdf:type owl:ObjectProperty ;
+                                                rdfs:subPropertyOf <http://data.sparna.fr/ontologies/sparnatural-config-core#SearchProperty> ;
+                                                rdfs:domain [ rdf:type owl:Class ;
+                                                              owl:unionOf ( :Acteur
+                                                                            :Document
+                                                                            :Entite_Archeologique
+                                                                            :Fait
+                                                                            :Mobilier
+                                                                            :Mur
+                                                                            :Sepulture
+                                                                            :Site
+                                                                            :US
+                                                                          )
+                                                            ] ;
+                                                rdfs:range :Label ;
+                                                rdfs:label "recheche de texte"@fr ,
+                                                           "text search"@en .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://www.openarchaeo.fr/explorateur/onto#Acteur
+:Acteur rdf:type owl:Class ;
+        rdfs:subClassOf <http://data.sparna.fr/ontologies/sparnatural-config-core#SparnaturalClass> ;
+        <http://data.sparna.fr/ontologies/sparnatural-config-core#highlightedIcon> "assets/icons/blanc/acteur.png" ;
+        <http://data.sparna.fr/ontologies/sparnatural-config-core#icon> "assets/icons/noir/acteur.png" ;
+        rdfs:label "Acteur"@fr ,
+                   "Actor"@en .
+
+
+###  http://www.openarchaeo.fr/explorateur/onto#Document
+:Document rdf:type owl:Class ;
+          rdfs:subClassOf <http://data.sparna.fr/ontologies/sparnatural-config-core#SparnaturalClass> ;
+          <http://data.sparna.fr/ontologies/sparnatural-config-core#faIcon> "fas fa-file" ;
+          rdfs:label "Document"@en ,
+                     "Document"@fr .
+
+
+###  http://www.openarchaeo.fr/explorateur/onto#Entite_Archeologique
+:Entite_Archeologique rdf:type owl:Class ;
+                      rdfs:subClassOf <http://data.sparna.fr/ontologies/sparnatural-config-core#SparnaturalClass> ;
+                      <http://data.sparna.fr/ontologies/sparnatural-config-core#faIcon> "fas fa-home" ;
+                      rdfs:label "Archaeological Entity"@en ,
+                                 "Entité Archéologique"@fr .
+
+
+###  http://www.openarchaeo.fr/explorateur/onto#Fait
+:Fait rdf:type owl:Class ;
+      rdfs:subClassOf <http://data.sparna.fr/ontologies/sparnatural-config-core#SparnaturalClass> ;
+      <http://data.sparna.fr/ontologies/sparnatural-config-core#highlightedIcon> "assets/icons/blanc/fait.png" ;
+      <http://data.sparna.fr/ontologies/sparnatural-config-core#icon> "assets/icons/noir/fait.png" ;
+      rdfs:label "Fait"@fr ,
+                 "Feature"@en .
+
+
+###  http://www.openarchaeo.fr/explorateur/onto#Label
+:Label rdf:type owl:Class ;
+       rdfs:subClassOf <http://data.sparna.fr/ontologies/sparnatural-config-core#SparnaturalClass> ;
+       <http://data.sparna.fr/ontologies/sparnatural-config-core#highlightedIcon> "assets/icons/blanc/search.png" ;
+       <http://data.sparna.fr/ontologies/sparnatural-config-core#icon> "assets/icons/noir/search.png" ;
+       rdfs:label "Rechercher"@fr ,
+                  "Search"@en .
+
+
+###  http://www.openarchaeo.fr/explorateur/onto#Lieu
+:Lieu rdf:type owl:Class ;
+      rdfs:subClassOf <http://data.sparna.fr/ontologies/sparnatural-config-core#SparnaturalClass> ;
+      <http://data.sparna.fr/ontologies/sparnatural-config-core#highlightedIcon> "assets/icons/blanc/lieu.png" ;
+      <http://data.sparna.fr/ontologies/sparnatural-config-core#icon> "assets/icons/noir/lieu.png" ;
+      rdfs:label "Lieu"@fr ,
+                 "Place"@en .
+
+
+###  http://www.openarchaeo.fr/explorateur/onto#Mobilier
+:Mobilier rdf:type owl:Class ;
+          rdfs:subClassOf <http://data.sparna.fr/ontologies/sparnatural-config-core#SparnaturalClass> ;
+          <http://data.sparna.fr/ontologies/sparnatural-config-core#highlightedIcon> "assets/icons/blanc/mobilier.png" ;
+          <http://data.sparna.fr/ontologies/sparnatural-config-core#icon> "assets/icons/noir/mobilier.png" ;
+          rdfs:label "Artifact"@en ,
+                     "Mobilier"@fr .
+
+
+###  http://www.openarchaeo.fr/explorateur/onto#Mur
+:Mur rdf:type owl:Class ;
+     rdfs:subClassOf <http://data.sparna.fr/ontologies/sparnatural-config-core#SparnaturalClass> ;
+     <http://data.sparna.fr/ontologies/sparnatural-config-core#highlightedIcon> "assets/icons/blanc/construction.png" ;
+     <http://data.sparna.fr/ontologies/sparnatural-config-core#icon> "assets/icons/noir/construction.png" ;
+     rdfs:label "Mur"@fr ,
+                "Wall"@en .
+
+
+###  http://www.openarchaeo.fr/explorateur/onto#Sepulture
+:Sepulture rdf:type owl:Class ;
+           rdfs:subClassOf <http://data.sparna.fr/ontologies/sparnatural-config-core#SparnaturalClass> ;
+           <http://data.sparna.fr/ontologies/sparnatural-config-core#highlightedIcon> "assets/icons/blanc/sepulture.png" ;
+           <http://data.sparna.fr/ontologies/sparnatural-config-core#icon> "assets/icons/noir/sepulture.png" ;
+           rdfs:label "Burial"@en ,
+                      "Sepulture"@fr .
+
+
+###  http://www.openarchaeo.fr/explorateur/onto#Site
+:Site rdf:type owl:Class ;
+      rdfs:subClassOf <http://data.sparna.fr/ontologies/sparnatural-config-core#SparnaturalClass> ;
+      <http://data.sparna.fr/ontologies/sparnatural-config-core#highlightedIcon> "assets/icons/blanc/site.png" ;
+      <http://data.sparna.fr/ontologies/sparnatural-config-core#icon> "assets/icons/noir/site.png" ;
+      rdfs:label "Site"@en ,
+                 "Site"@fr .
+
+
+###  http://www.openarchaeo.fr/explorateur/onto#Temps
+:Temps rdf:type owl:Class ;
+       rdfs:subClassOf <http://data.sparna.fr/ontologies/sparnatural-config-core#SparnaturalClass> ;
+       <http://data.sparna.fr/ontologies/sparnatural-config-core#highlightedIcon> "assets/icons/blanc/temps.png" ;
+       <http://data.sparna.fr/ontologies/sparnatural-config-core#icon> "assets/icons/noir/temps.png" ;
+       rdfs:label "Temps"@fr ,
+                  "Time"@en .
+
+
+###  http://www.openarchaeo.fr/explorateur/onto#Type
+:Type rdf:type owl:Class ;
+      rdfs:subClassOf <http://data.sparna.fr/ontologies/sparnatural-config-core#SparnaturalClass> ;
+      <http://data.sparna.fr/ontologies/sparnatural-config-core#highlightedIcon> "assets/icons/blanc/type.png" ;
+      <http://data.sparna.fr/ontologies/sparnatural-config-core#icon> "assets/icons/noir/type.png" ;
+      rdfs:label "Type"@en ,
+                 "Type"@fr .
+
+
+###  http://www.openarchaeo.fr/explorateur/onto#US
+:US rdf:type owl:Class ;
+    rdfs:subClassOf <http://data.sparna.fr/ontologies/sparnatural-config-core#SparnaturalClass> ;
+    <http://data.sparna.fr/ontologies/sparnatural-config-core#highlightedIcon> "assets/icons/blanc/unite_str.png" ;
+    <http://data.sparna.fr/ontologies/sparnatural-config-core#icon> "assets/icons/noir/unite_str.png" ;
+    rdfs:label "Stratigraphic unit"@en ,
+               "Unité stratigraphique"@fr .
+
+
+###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi

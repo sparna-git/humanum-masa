@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>fr.humanum.masa.openarchaeo</groupId>
@@ -6,12 +7,12 @@
 	<packaging>war</packaging>
 	<name>OpenArchaeo federation</name>
 
-    <parent>
-        <groupId>fr.humanum.masa.openarchaeo</groupId>
-        <artifactId>openarchaeo-root-pom</artifactId>
-        <version>1.0-SNAPSHOT</version>
-    </parent>
-    
+	<parent>
+		<groupId>fr.humanum.masa.openarchaeo</groupId>
+		<artifactId>openarchaeo-root-pom</artifactId>
+		<version>1.0-SNAPSHOT</version>
+	</parent>
+
 	<dependencies>
 		<dependency>
 			<groupId>commons-httpclient</groupId>
@@ -60,8 +61,8 @@
 			<artifactId>slf4j-api</artifactId>
 		</dependency>
 		<dependency>
-		    <groupId>ch.qos.logback</groupId>
-		    <artifactId>logback-classic</artifactId>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
 		</dependency>
 
 		<dependency>
@@ -75,26 +76,26 @@
 			<artifactId>spring-webmvc</artifactId>
 		</dependency>
 		<dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-config</artifactId>
-        </dependency>
-		
-		<!-- Lucene -->
-		<dependency>
-		  <groupId>org.apache.lucene</groupId>
-		  <artifactId>lucene-core</artifactId>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
 		</dependency>
 		<dependency>
-              <groupId>org.apache.lucene</groupId>
-              <artifactId>lucene-analyzers-common</artifactId>
-        </dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+		</dependency>
+
+		<!-- Lucene -->
 		<dependency>
-		  <groupId>org.apache.lucene</groupId>
-		  <artifactId>lucene-queryparser</artifactId>
+			<groupId>org.apache.lucene</groupId>
+			<artifactId>lucene-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.lucene</groupId>
+			<artifactId>lucene-analyzers-common</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.lucene</groupId>
+			<artifactId>lucene-queryparser</artifactId>
 		</dependency>
 
 		<dependency>
@@ -103,20 +104,16 @@
 			<version>${project.parent.version}</version>
 		</dependency>
 
-		<!--
-		<dependency>
-			<groupId>org.aksw</groupId>
-		    <artifactId>costfed-core</artifactId>
-		    <version>0.0.1-SNAPSHOT</version>
-		</dependency>
-		-->
+		<!-- <dependency> <groupId>org.aksw</groupId> <artifactId>costfed-core</artifactId> 
+			<version>0.0.1-SNAPSHOT</version> </dependency> -->
 
 		<dependency>
 			<groupId>com.veritas.fops</groupId>
-		    <artifactId>fedx</artifactId>
-		    <version>5.2.0-SNAPSHOT</version>
-		    <!-- Exclude slf4j to log4j mapping so that it does not interfere with logback -->
-		    <exclusions>
+			<artifactId>fedx</artifactId>
+			<version>5.2.0-SNAPSHOT</version>
+			<!-- Exclude slf4j to log4j mapping so that it does not interfere with 
+				logback -->
+			<exclusions>
 				<exclusion>
 					<groupId>org.slf4j</groupId>
 					<artifactId>slf4j-log4j12</artifactId>
@@ -125,15 +122,15 @@
 		</dependency>
 
 
-	    <!-- Jackson -->
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-        </dependency>
+		<!-- Jackson -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+		</dependency>
 
 	</dependencies>
 </project>
