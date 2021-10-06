@@ -78,6 +78,12 @@
 
 <c:if test="${fn:length(data.sources) == 1}">
 	
+	<!--  2 : insérer toutes les métadonnées de la source en RDFa -->
+	<!--  Tout sauf : 
+	  - dcat:contactPoint à transformer en dct:publisher
+	  - dcat:theme : ne pas insérer
+	  - dcat:distribution : ne pas insérer  
+	-->
 	<meta property="dct:title" content="${dataSource.getTitle(lang)}" />
 	<meta property="dct:description" content="${dataSource.getShortDesc(lang)}" xml:lang="${lang}" />
 	
@@ -209,6 +215,7 @@
 							<div class="card-header sourceCardHeader">
 								<div class="row">
 									<div class="col-ms-6">
+										<!--  1 : afficher les métadonnées de la source en JSP -->
 										<h4 class="card-title">${dataSource.sourceString}
 											${dataSource.endpoint} ${dataSource.getTitle(lang)}</h4>														
 										<p><em>${dataSource.getShortDesc(lang)}</em></p>														
