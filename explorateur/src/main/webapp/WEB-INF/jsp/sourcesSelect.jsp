@@ -86,11 +86,12 @@ xmlns:foaf="http://xmlns.com/foaf/0.1/"
 		<div class="card sourceCard">
 			<div class="card-header sourceCardHeader">
 				<h4 class="card-title"><input type="checkbox" class="selectSourceCheckbox" data-uri="{{:sourceString}}" data-endpoint="{{:endpoint}}" />&nbsp;{{:title}}</h4>
-				<p><em>{{:shortDesc}}</em></p>			 
+				<p><em>{{:shortDesc}}</em></p>
+				<p><smaller><a data-toggle="collapse" href="#source{{:#index}}_details"><fmt:message key="sources.desc.details" />&nbsp;<i class="fal fa-angle-down"></i></a></smaller></p>				 
 		  	</div> <!-- / .card-header -->
 			
 		   	<div>	
-				<smaller><a data-toggle="collapse" href="#source{{:#index}}_details"><fmt:message key="sources.desc.details" />&nbsp;<i class="fal fa-angle-down"></i></a></smaller>					  
+								  
 		  		<div  class="collapse card-body" id="source{{:#index}}_details">
     				<strong><fmt:message key="sources.desc.spatial" /> :</strong><br> <ul class="inline-list">{{for spatial}}<li>{{:}}</li>{{/for}}</ul></li><br>
 					<strong><fmt:message key="sources.desc.temporal" /> :</strong><br> <fmt:message key="sources.desc.temporal.from" /> {{:startYear}} <fmt:message key="sources.desc.temporal.to" /> {{:endYear}}</li><br>

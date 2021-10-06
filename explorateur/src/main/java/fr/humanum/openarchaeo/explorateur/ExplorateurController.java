@@ -6,7 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import java.io.PrintWriter;
-
+import java.net.URLEncoder;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
@@ -121,7 +121,7 @@ public class ExplorateurController {
 			return new SourceExplorerDisplay(s, (theSource != null) ? theSource.getTitle("fr") : s);
 		}).collect(Collectors.toList());
 		
-				// Read resource
+		// Read resource
 		List<FederationSourceJson> sourcesDefinition;
 		if (SessionData.get(request.getSession()).getSources() == null) {
 			sourcesDefinition = explorateurService.getSources();
@@ -130,39 +130,19 @@ public class ExplorateurController {
 			sourcesDefinition = SessionData.get(request.getSession()).getSources();			
 		}
 		
-		if (sources.size() < 2) {
-			List<FederationSourceJson> listSource = new ArrayList<>();
-			for (String src : sources) {
-				listSource.add(SessionData.get(request.getSession()).findSourceById(src));
-			}
-			sourcesDefinition = listSource;
-			model.addObject("sourcesDefinition", sourcesDefinition);
+		if (sources.size() == 1) {
+			FederationSourceJson singleSourceDefinition = SessionData.get(request.getSession()).findSourceById(sources.get(0));
+			model.addObject("singleSourceDefinition", singleSourceDefinition);
 		}
-
-		List<FederationSourceDisplayData> fsdd = sourcesDefinition.stream()
-				.map(s -> new FederationSourceDisplayData(s,
-						SessionData.get(request.getSession()).getUserLocale().getLanguage()))
-				.collect(Collectors.toList());
-
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		PrintWriter pw = new PrintWriter(baos);
-		writeJson(fsdd, pw);
-		pw.flush();
 
 		ExplorerDisplayData data = new ExplorerDisplayData();
 		data.setSources(sourcesDisplay);
 
 		data.setRequiresFederation(
 				explorateurService.requiresFederation(sources, SessionData.get(request.getSession()).getSources()));
-
-		fsdd.forEach(p -> {
-			System.out.println(p.getPublisher());
-			System.out.println(p.getContact());
-		});
 		
 		
 		model.addObject("data", data);
-		model.addObject("sourcesDefinitionJson", baos.toString());
 		model.addObject("legalNotice", this.readLegalNotice(SessionData.get(request.getSession()).getUserLocale()));
 
 		return model;
@@ -267,22 +247,16 @@ public class ExplorateurController {
 		
 		List<FederationSourceJson> sourcesDefinition;
 		if (SessionData.get(request.getSession()).getSources() == null) {
-			log.debug("Récupération des sources");
 			sourcesDefinition = explorateurService.getSources();
 			SessionData.get(request.getSession()).setSources(sourcesDefinition);
-			log.debug("Récupération des sources terminée");
 		} else {
-			log.debug("Sources déjà en cache.");
 			sourcesDefinition = SessionData.get(request.getSession()).getSources();
 		}
-				
-		String URLQuery = request.getRequestURL().toString() + "?" + request.getQueryString();
-		System.out.println(URLQuery);
 		
 		DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
 
-		// Elemento ra�z
+		// Elemento ra�z
 		Document doc = docBuilder.newDocument();
 		Element rootElement = doc.createElement("urlset");
 		Attr attrRoot = doc.createAttribute("xmlns");
@@ -296,7 +270,7 @@ public class ExplorateurController {
 			rootElement.appendChild(urlXML);
 			
 			Element loc = doc.createElement("loc");
-			String urlQuery = urlBase+"?source="+src.getSourceString();
+			String urlQuery = urlBase+"/explorer?source="+URLEncoder.encode(src.getSourceString(),"UTF-8");
 			loc.setTextContent(urlQuery);
 			urlXML.appendChild(loc);
 		}
@@ -305,7 +279,6 @@ public class ExplorateurController {
 		TransformerFactory transformerFactory = TransformerFactory.newInstance();
 		Transformer transformer = transformerFactory.newTransformer();
 		DOMSource source = new DOMSource(doc);
-		// StreamResult result = new StreamResult(new File("C:/temp/prueba.xml"));
 		StreamResult result = new StreamResult(response.getOutputStream());
 		try {
 			transformer.transform(source, result);

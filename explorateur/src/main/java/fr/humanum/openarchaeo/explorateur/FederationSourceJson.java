@@ -153,6 +153,10 @@ public class FederationSourceJson  {
 		return this.getValueAsValue("schema:endDate", lang);
 	}
 	
+	public Value getPublisher() {
+		return this.getValueAsValue("dcterms:"+DCTERMS.PUBLISHER.getLocalName(), null);
+	}
+	
 	public Map<String, List<String>> getDescriptionInLang(String lang) {
 		TreeMap<String, List<String>> result = new TreeMap<String, List<String>>();
 		for (Map.Entry<String, List<LiteralOrResourceValue>> e : this.description.entrySet()) {
