@@ -150,6 +150,8 @@ public class FederationSourceDisplayData {
 	public String getContact() {
 		return contact;
 	}
+	
+	
 
 	public void setContact(String contact) {
 		this.contact = contact;
@@ -234,6 +236,7 @@ public class FederationSourceDisplayData {
 	public void setSubject(List<String> subject) {
 		this.subject = subject;
 	}
+	
 	
 	
 }

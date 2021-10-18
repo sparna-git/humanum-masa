@@ -15,6 +15,7 @@ import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 import javax.inject.Inject;
+import javax.jms.Session;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.parsers.DocumentBuilder;
@@ -78,6 +79,7 @@ public class ExplorateurController {
 		List<FederationSourceJson> sourcesDefinition;
 		if (SessionData.get(request.getSession()).getSources() == null) {
 			log.debug("Récupération des sources");
+			
 			sourcesDefinition = explorateurService.getSources();
 			SessionData.get(request.getSession()).setSources(sourcesDefinition);
 			log.debug("Récupération des sources terminée");
@@ -113,8 +115,8 @@ public class ExplorateurController {
 		// store sources if they are not
 		if (SessionData.get(request.getSession()).getSources() == null) {
 			SessionData.get(request.getSession()).setSources(explorateurService.getSources());
+			
 		}
-
 		List<SourceExplorerDisplay> sourcesDisplay = sources.stream().map(s -> {
 			// lookup source
 			FederationSourceJson theSource = SessionData.get(request.getSession()).findSourceById(s);
@@ -134,14 +136,14 @@ public class ExplorateurController {
 			FederationSourceJson singleSourceDefinition = SessionData.get(request.getSession()).findSourceById(sources.get(0));
 			model.addObject("singleSourceDefinition", singleSourceDefinition);
 		}
-
+		
+		model.addObject("UriRequete", request.getRequestURL()+"?"+request.getQueryString());
 		ExplorerDisplayData data = new ExplorerDisplayData();
 		data.setSources(sourcesDisplay);
-
+		
 		data.setRequiresFederation(
 				explorateurService.requiresFederation(sources, SessionData.get(request.getSession()).getSources()));
-		
-		
+			
 		model.addObject("data", data);
 		model.addObject("legalNotice", this.readLegalNotice(SessionData.get(request.getSession()).getUserLocale()));
 
@@ -204,7 +206,7 @@ public class ExplorateurController {
 		// retrieve resource bundle for path to home page
 		ResourceBundle b = ResourceBundle.getBundle("fr.humanum.openarchaeo.explorateur.i18n.OpenArchaeo", locale,
 				new StrictResourceBundleControl());
-
+		
 		try {
 			return IOUtils.toString(
 					new FileInputStream(
@@ -222,7 +224,8 @@ public class ExplorateurController {
 				new StrictResourceBundleControl());
 
 		try {
-			return IOUtils.toString(
+			
+			return IOUtils.toString(					
 					new FileInputStream(this.extConfigService.findMandatoryFile(b.getString("home.content"))),
 					Charset.forName("UTF-8"));
 		} catch (Exception e) {

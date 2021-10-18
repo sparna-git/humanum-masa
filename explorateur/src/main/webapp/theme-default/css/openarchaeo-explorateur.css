@@ -123,6 +123,10 @@ footer {
 	width: 100%;
 }
 
+.sourceLeftPanel {
+	margin-top: 1em;
+}
+
 /* fix display problems in datatable search header */
 input[type="search"] { width: auto; }
 .yasr .dataTables_wrapper .dataTables_filter {white-space: nowrap;}
