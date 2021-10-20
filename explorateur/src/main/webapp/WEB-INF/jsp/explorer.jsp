@@ -12,10 +12,13 @@
 	basename="fr.humanum.openarchaeo.explorateur.i18n.OpenArchaeo" />
 
 <c:set var="dataSource" value="${requestScope['singleSourceDefinition']}" />
+<c:set var="uriSource" value="${requestScope['UriRequete']}" />
 <c:set var="lang"
 	value="${sessionScope['fr.humanum.openarchaeo.SessionData'].userLocale.language}" />
 
-<html>
+<html xmlns:dct="http://purl.org/dc/terms/"
+	  xmlns:dc="http://purl.org/dc/elements/1.1/"
+	  xmlns:xsd="http://www.w3.org/2001/XMLSchema#">
 <head>
 <title><fmt:message key="window.app" /> | <fmt:message
 		key="explore.window.title" /> <c:if test="${fn:length(data.sources) == 1}">${dataSource.getTitle(lang)}</c:if></title>
@@ -75,12 +78,12 @@
 
 
 <!-- Call Isidore RDFa -->
-
+<link rel="dc:identifier" href="${uriSource }" />
 <c:if test="${fn:length(data.sources) == 1}">
 	
 	<!--  2 : insérer toutes les métadonnées de la source en RDFa -->
 	<!--  Tout sauf : 
-	  - dcat:contactPoint à transformer en dct:publisher
+	  - dcat:contactPoint à transformer en dct:publisher -- fait
 	  - dcat:theme : ne pas insérer
 	  - dcat:distribution : ne pas insérer  
 	-->
@@ -89,14 +92,19 @@
 	
 	<!-- publisher -->
 	<c:if test="${not empty dataSource.publisher}">
-		<meta property="dct:publisher" resource="${dataSource.publisher}" />
+		<meta property="dct:publisher" href="${dataSource.publisher}" />
 	</c:if>
 	
 	<!-- temporal -->
 	<meta property="dct:temporal" content="${dataSource.getStartDate(lang)}/${dataSource.getEndDate(lang)}"/>
+	<meta property="dct:issued" content="${dataSource.getIssuePage(lang)}" datatype="xsd:date"/>
+	<meta property="dct:modified" content="${dataSource.getModifiedPage(lang)}" datatype="xsd:date"/>
+	
 	
 	<!-- Contact Point -->
-	
+	<c:if test="${not empty dataSource.getContactPage(lang)}">
+		<meta property="dct:publisher" href="${dataSource.getContactPage(lang)}" />
+	</c:if>
 	
 	<!-- Spatial -->
 	<c:forEach items="${dataSource.getSpatial(lang)}" var="sourceSpatial" varStatus="i">
@@ -106,7 +114,13 @@
 	<c:forEach items="${dataSource.getKeywords(lang)}" var="sourceKeyword" varStatus="i">
 		<meta property="dct:subject" content="${sourceKeyword}"/>
 	</c:forEach>
-		
+	
+	<!-- source -->
+	<meta property="dct:subject" href="${dataSource.getSourcePage(lang)}"/>
+	
+	<!-- Conforms -->
+	<meta property="dct:conformsTo" href="${dataSource.getConformsTo(lang)}"/>
+	
 </c:if>
 
  <!--fin Isidore -->
@@ -211,17 +225,61 @@
 					</div>
 					
 					<div class="col-md-4">									
-						<div class="card sourceCard">
-							<div class="card-header sourceCardHeader">
-								<div class="row">
-									<div class="col-ms-6">
-										<!--  1 : afficher les métadonnées de la source en JSP -->
-										<h4 class="card-title">${dataSource.sourceString}
-											${dataSource.endpoint} ${dataSource.getTitle(lang)}</h4>														
-										<p><em>${dataSource.getShortDesc(lang)}</em></p>														
+						<div class="card sourceLeftPanel">
+							<div class="card-header sourceCardHeader"> 										
+									<!--  1 : afficher les métadonnées de la source en JSP
+											<h4 class="card-title" style="align-content: center;"> -->
+											<h4 class="card-title">${dataSource.getTitle(lang)}</h4>													
+											<%="<p><em>" %>${dataSource.getShortDesc(lang)}<%="</em></p>" %>
+										</div>
+										
+										<div class="card-body">
+											<c:if test="${dataSource.getSpatialPage(lang) != null}">
+												<strong><fmt:message key="sources.desc.spatial" />: </strong> ${dataSource.getSpatialPage(lang)}<br>
+											</c:if>								
+											<c:choose>
+												<c:when test="${dataSource.getStartDate(lang) != null && dataSource.getEndDate(lang) != null}">
+													<strong><fmt:message key="sources.desc.temporal" />: </strong>${dataSource.getStartDate(lang)} <fmt:message key="sources.desc.temporal.to" /> ${dataSource.getEndDate(lang)}<br>
+												</c:when>
+												<c:when test="${dataSource.getStartDate(lang) != null && dataSource.getEndDate(lang) == null}">
+													<strong><fmt:message key="sources.desc.temporal" />: </strong>${dataSource.getStartDate(lang)}<br>
+												</c:when>
+												<c:when test="${dataSource.getStartDate(lang) == null && dataSource.getEndDate(lang) != null}">
+													<strong><fmt:message key="sources.desc.temporal" />: </strong>${dataSource.getEndDate(lang)}<br>
+												</c:when>
+											</c:choose>
+											<c:if test="${dataSource.keywordPage(lang) != null}">
+												<strong><fmt:message key="sources.desc.keywords" />: </strong>${dataSource.keywordPage(lang)}<br>
+											</c:if>
+											<c:if test="${dataSource.SubjectPage(lang) != null}">
+												<strong><fmt:message key="sources.desc.dcterms_subject" />: </strong>${dataSource.SubjectPage(lang)}<br>
+											</c:if>	
+											<c:set var="contact" value="${fn:indexOf(dataSource.getContactPage(lang),'mailto')}"/>										
+											<c:if test="${contact == 0}">												
+												<strong><fmt:message key="sources.desc.dcat_contactPoint" />: </strong><a href="${dataSource.getContactPage(lang)}">${dataSource.getContactPage(lang)}</a>
+												<br>
+											</c:if>
+											<c:if test="${fn:indexOf(dataSource.getPublisher(),'http') == 0}">
+												<strong><fmt:message key="sources.desc.dcterms_publisher" />: </strong><a href="${dataSource.getPublisher()}">${dataSource.getPublisher()}</a>
+												<br>
+											</c:if>					 
+											<c:if test="${dataSource.getIssuePage(lang) != null}">
+												<strong><fmt:message key="sources.desc.dcterms_issued" />: </strong>${dataSource.getIssuePage(lang)}<br>												
+											</c:if>							 
+											<c:if test="${dataSource.getModifiedPage(lang) != null}">
+												<strong><fmt:message key="sources.desc.dcterms_modified" />: </strong>${dataSource.getModifiedPage(lang)}<br>
+											</c:if>
+											<c:if test="${fn:indexOf(dataSource.getSourcePage(lang),'http') == 0}">
+												<strong><fmt:message key="sources.desc.dcterms_source" />: </strong><a href="${dataSource.getSourcePage(lang)}">${dataSource.getSourcePage(lang)}</a>
+												<br>
+											</c:if>
+											<c:if test="${fn:indexOf(dataSource.getLicensePage(lang),'http') == 0}">
+												<strong><fmt:message key="sources.desc.dcterms_license" />: </strong><a href="${dataSource.getLicensePage(lang)}">${dataSource.getLicensePage(lang)}</a>
+												<br>
+											</c:if>												
+										</div> <!--  / .card-body -->
+										
 									</div>
-								</div>												
-							</div>
 						</div>
 					</div>
 				</div>

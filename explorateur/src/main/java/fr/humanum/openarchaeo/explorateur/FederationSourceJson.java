@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import org.eclipse.rdf4j.model.Value;
 import org.eclipse.rdf4j.model.impl.SimpleValueFactory;
+import org.eclipse.rdf4j.model.vocabulary.DCAT;
 import org.eclipse.rdf4j.model.vocabulary.DCTERMS;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -157,6 +158,53 @@ public class FederationSourceJson  {
 		return this.getValueAsValue("dcterms:"+DCTERMS.PUBLISHER.getLocalName(), null);
 	}
 	
+	public String getSpatialPage(String lang) {
+		return this.getSpatial(lang).stream().collect(Collectors.joining(", "));
+	}
+	
+	public String keywordPage(String lang) {
+		return this.getKeywords(lang).stream().collect(Collectors.joining(", "));
+	}
+	
+	public String DatePublisherPage(String lang) {
+		return this.getLiteralSubject(lang).stream().collect(Collectors.joining(", "));
+	}
+	
+	public String DateupdatePublisherPage(String lang) {
+		return this.getLiteralSubject(lang).stream().collect(Collectors.joining(", "));
+	}
+	
+	public String SubjectPage(String lang) {
+		return this.getLiteralSubject(lang).stream().collect(Collectors.joining(", "));
+	}
+	
+	public String getContactPage(String lang) {
+		return this.getValue("dcat:"+DCAT.CONTACT_POINT.getLocalName(), lang);
+	}
+	
+	public String getIssuePage(String lang) {
+		return this.getValue("dcterms:"+DCTERMS.ISSUED.getLocalName(), lang);
+	}
+	
+	public String getModifiedPage(String lang) {
+		return this.getValue("dcterms:"+DCTERMS.MODIFIED.getLocalName(), lang);
+	}
+	
+	
+	public String getSourcePage(String lang) {
+		return this.getValue("dcterms:"+DCTERMS.SOURCE.getLocalName(), lang);
+	}
+	
+	public String getLicensePage(String lang) {
+		return this.getValue("dcterms:"+DCTERMS.LICENSE.getLocalName(), lang);
+	}
+	
+	public String getConformsTo(String lang) {
+		return this.getValue("dcterms:"+DCTERMS.CONFORMS_TO.getLocalName(), lang);
+	}
+	
+	///dcterms:source
+	
 	public Map<String, List<String>> getDescriptionInLang(String lang) {
 		TreeMap<String, List<String>> result = new TreeMap<String, List<String>>();
 		for (Map.Entry<String, List<LiteralOrResourceValue>> e : this.description.entrySet()) {
@@ -185,6 +233,8 @@ public class FederationSourceJson  {
 		}
 		return result;
 	}
+	
+	
 	
 	public String displayValueList(List<String> values) {
 		if(values == null) {
