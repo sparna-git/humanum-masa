@@ -184,7 +184,7 @@ public class ExplorateurController {
 
 	// read file sparnatural
 
-	@RequestMapping(value = { "sparnatural" })
+	@RequestMapping(value = { "sparnatural-config.ttl" })
 	@ResponseBody
 	public String readSparnatural(HttpServletRequest request, HttpServletResponse response) {
 		String configString = this.readSparnatural(SessionData.get(request.getSession()).getUserLocale());

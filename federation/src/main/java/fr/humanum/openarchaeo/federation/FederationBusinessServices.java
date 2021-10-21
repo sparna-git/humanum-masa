@@ -77,10 +77,15 @@ public class FederationBusinessServices {
 		this.federationSources=fsrms.get();
 	}
 	
-	public void executeSparql(String query, OutputStream out, String mimeType) throws IOException {
+	public void executeSparql(String query, OutputStream out, String mimeType, List<String> defaultGraphUris) throws IOException {
 		log.debug("Executing SPARQL : \n"+query);
 		long start = System.currentTimeMillis();
-		List<? extends FederationSource> sourcesToQuery = this.filterFederationSources(QueryFactory.create(query));
+		List<? extends FederationSource> sourcesToQuery;
+		if(defaultGraphUris == null || defaultGraphUris.isEmpty()) {
+			sourcesToQuery = this.filterFederationSources(QueryFactory.create(query));
+		} else {
+			sourcesToQuery = defaultGraphUris.stream().map(source -> findSource(source)).collect(Collectors.toList());
+		}
 
 		String queryWithoutOriginalFromClauses = this.removeFromClauses(QueryFactory.create(query)).toString(Syntax.syntaxSPARQL_11);
 		log.debug("Query after removing FROM clauses : \n"+queryWithoutOriginalFromClauses);

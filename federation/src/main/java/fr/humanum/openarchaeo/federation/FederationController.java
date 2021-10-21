@@ -61,7 +61,8 @@ public class FederationController {
 	public void getXMLResult(
 			HttpServletRequest request,
 			HttpServletResponse response,
-			@RequestParam(value="query",required=true) String query
+			@RequestParam(value="query",required=true) String query,
+			@RequestParam(value="default-graph-uri",required=false) List<String> defaultGraphUris
 			)
 	throws Exception {
 		QueryResultFormat outputFormat = TupleQueryResultFormat.JSON;
@@ -69,7 +70,7 @@ public class FederationController {
 		
 		try {
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
-			federationService.executeSparql(query, baos, outputFormat.getDefaultMIMEType());
+			federationService.executeSparql(query, baos, outputFormat.getDefaultMIMEType(), defaultGraphUris);
 			response.setContentType(outputFormat.getDefaultMIMEType());
 			response.getOutputStream().write(baos.toByteArray());
 		} catch (Exception e) {

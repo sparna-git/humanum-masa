@@ -1,5 +1,6 @@
 package fr.humanum.openarchaeo.explorateur;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -158,48 +159,44 @@ public class FederationSourceJson  {
 		return this.getValueAsValue("dcterms:"+DCTERMS.PUBLISHER.getLocalName(), null);
 	}
 	
-	public String getSpatialPage(String lang) {
-		return this.getSpatial(lang).stream().collect(Collectors.joining(", "));
+	/** asString methods **/
+	
+	public String getSpatialAsString(String lang) {
+		List<String> values = this.getSpatial(lang);
+		return (values != null)?values.stream().collect(Collectors.joining(", ")):null;
 	}
 	
-	public String keywordPage(String lang) {
-		return this.getKeywords(lang).stream().collect(Collectors.joining(", "));
+	public String getSubjectAsString(String lang) {
+		List<String> values = this.getLiteralSubject(lang);
+		return (values != null)?values.stream().collect(Collectors.joining(", ")):null;
 	}
 	
-	public String DatePublisherPage(String lang) {
-		return this.getLiteralSubject(lang).stream().collect(Collectors.joining(", "));
+	public String getKeywordAsString(String lang) {
+		List<String> values = this.getKeywords(lang);
+		return (values != null)?values.stream().collect(Collectors.joining(", ")):null;
 	}
 	
-	public String DateupdatePublisherPage(String lang) {
-		return this.getLiteralSubject(lang).stream().collect(Collectors.joining(", "));
-	}
-	
-	public String SubjectPage(String lang) {
-		return this.getLiteralSubject(lang).stream().collect(Collectors.joining(", "));
-	}
-	
-	public String getContactPage(String lang) {
+	public String getContactAsString(String lang) {
 		return this.getValue("dcat:"+DCAT.CONTACT_POINT.getLocalName(), lang);
 	}
 	
-	public String getIssuePage(String lang) {
+	public String getIssuedAsString(String lang) {
 		return this.getValue("dcterms:"+DCTERMS.ISSUED.getLocalName(), lang);
 	}
 	
-	public String getModifiedPage(String lang) {
+	public String getModifiedAsString(String lang) {
 		return this.getValue("dcterms:"+DCTERMS.MODIFIED.getLocalName(), lang);
-	}
+	}	
 	
-	
-	public String getSourcePage(String lang) {
+	public String getSourceAsString(String lang) {
 		return this.getValue("dcterms:"+DCTERMS.SOURCE.getLocalName(), lang);
 	}
 	
-	public String getLicensePage(String lang) {
+	public String getLicenseAsString(String lang) {
 		return this.getValue("dcterms:"+DCTERMS.LICENSE.getLocalName(), lang);
 	}
 	
-	public String getConformsTo(String lang) {
+	public String getConformsToAsString(String lang) {
 		return this.getValue("dcterms:"+DCTERMS.CONFORMS_TO.getLocalName(), lang);
 	}
 	
