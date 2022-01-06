@@ -38,6 +38,10 @@
 <link rel="stylesheet"
 	href="<c:url value="/resources/MDB-Free/css/mdb.min.css" />">
 
+<!-- datepicker -->
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/@chenfengyuan/datepicker@1.0.9/dist/datepicker.min.css">
+
 <!-- Vis.js -->
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.css">
@@ -70,12 +74,6 @@
 <link
 	href='https://cdn.jsdelivr.net/npm/yasgui-yasr@2.12.19/dist/yasr.min.css'
 	rel='stylesheet' type='text/css' />
-
-
-<!-- datepicker -->
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/@chenfengyuan/datepicker@1.0.9/dist/datepicker.min.css">
-
 
 
 <c:if test="${fn:length(data.sources) == 1}">
@@ -480,7 +478,6 @@
 
 	<jsp:include page="footer.jsp" />
 
-	<!-- <script src="<c:url value="/resources/MDB-Free/js/jquery-3.1.1.min.js" />"></script> -->
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.js"></script>
 	<script src="<c:url value="/resources/js/jquery-3.3.1.min.js" />"></script>
@@ -491,25 +488,12 @@
 	<script src="<c:url value="/resources/MDB-Free/js/bootstrap.min.js" />"></script>
 	<script src="<c:url value="/resources/js/timeline.js" />"></script>
 
-	<!-- metadonnees -->
-	<script src="<c:url value="/resources/js/itemsjs.min.js" />"></script>
-
 	<!-- datepicker -->
 	<script
 		src="https://cdn.jsdelivr.net/npm/@chenfengyuan/datepicker@1.0.9/dist/datepicker.min.js"></script>
 
 	<!-- sparnatural -->
 	<script src="<c:url value="/resources/js/sparnatural.js" />"></script>
-
-
-	<!-- Processus Metadonnées -->
-
-	<!-- Jquery UI for range slider -->
-	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
-	<!-- JSRender for templating -->
-	<script src="https://www.jsviews.com/download/jsrender.js"></script>
-
 
 	<script type="text/javascript">
 	
