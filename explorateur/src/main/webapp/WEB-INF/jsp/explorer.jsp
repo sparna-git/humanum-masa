@@ -27,11 +27,6 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-
-<!-- Font Awesome -->
-<link rel="stylesheet"
-	href="<c:url value="/resources/fa/css/all.min.css" />">
-
 <!-- Bootstrap + Material Design Bootstrap -->
 <link rel="stylesheet"
 	href="<c:url value="/resources/MDB-Free/css/bootstrap.min.css" />" />
@@ -75,6 +70,9 @@
 	href='https://cdn.jsdelivr.net/npm/yasgui-yasr@2.12.19/dist/yasr.min.css'
 	rel='stylesheet' type='text/css' />
 
+<!-- Font Awesome -->
+<link rel="stylesheet"
+	href="<c:url value="/resources/fa/css/all.min.css" />">
 
 <c:if test="${fn:length(data.sources) == 1}">
 	
@@ -639,7 +637,7 @@
 		 
 		 var sources = sourcesUrls.join(" ");
 
-		 $('#sparnatural').Sparnatural({
+		 sparnatural = document.getElementById('sparnatural').Sparnatural({
 			config: 'sparnatural-config.ttl' ,
 			<c:if test="${fn:length(data.sources) == 1}">
 			// don't do that - this will work only if query expansion is done client side
