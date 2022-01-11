@@ -98,6 +98,96 @@
 	<bean class="fr.humanum.openarchaeo.federation.index.LuceneDocumentBuilder" factory-bean="luceneDocumentBuilderFactory" factory-method="newLuceneDocumentBuilder">
 		<constructor-arg name="spec" value="oa:Site oa:a_trouve oa:US" />
 	</bean>
+	
+	<!-- ***** Les Fouilles ***** -->
+
+	<!-- oa:menee_par -->
+	<bean class="fr.humanum.openarchaeo.federation.index.LuceneDocumentBuilder" factory-bean="luceneDocumentBuilderFactory" factory-method="newLuceneDocumentBuilder">
+		<constructor-arg name="spec" value="oa:Fouille oa:menee_par oa:Acteur" />
+	</bean>	
+	
+	<!-- oa:a_mene -->
+	<bean class="fr.humanum.openarchaeo.federation.index.LuceneDocumentBuilder" factory-bean="luceneDocumentBuilderFactory" factory-method="newLuceneDocumentBuilder">
+		<constructor-arg name="spec" value="oa:Acteur oa:a_mene oa:Fouille" />
+	</bean>	
+	
+	<!-- oa:fouille_de_type -->
+	<bean class="fr.humanum.openarchaeo.federation.index.LuceneDocumentBuilder" factory-bean="luceneDocumentBuilderFactory" factory-method="newLuceneDocumentBuilder">
+		<constructor-arg name="spec" value="oa:Fouille oa:fouille_de_type oa:Type" />
+		<constructor-arg name="fetchIris" value="false" />
+		<constructor-arg name="ignoreRange" value="true" />
+		<constructor-arg name="autoFixGeonamesUris" value="false" />
+		<constructor-arg name="labelFetcher" ref="referentielLabelFetcher" />
+	</bean>
+	
+	<!-- oa:sest_deroulee_a -->
+	<bean class="fr.humanum.openarchaeo.federation.index.LuceneDocumentBuilder" factory-bean="luceneDocumentBuilderFactory" factory-method="newLuceneDocumentBuilder">
+		<constructor-arg name="spec" value="oa:Fouille oa:sest_deroulee_a oa:Lieu" />
+	</bean>	
+	
+	<!-- oa:a_decouvert -->
+	<bean class="fr.humanum.openarchaeo.federation.index.LuceneDocumentBuilder" factory-bean="luceneDocumentBuilderFactory" factory-method="newLuceneDocumentBuilder">
+		<constructor-arg name="spec" value="oa:Fouille oa:a_decouvert oa:Mobilier" />
+	</bean>	
+	<bean class="fr.humanum.openarchaeo.federation.index.LuceneDocumentBuilder" factory-bean="luceneDocumentBuilderFactory" factory-method="newLuceneDocumentBuilder">
+		<constructor-arg name="spec" value="oa:Fouille oa:a_decouvert oa:Sepulture" />
+	</bean>	
+	<bean class="fr.humanum.openarchaeo.federation.index.LuceneDocumentBuilder" factory-bean="luceneDocumentBuilderFactory" factory-method="newLuceneDocumentBuilder">
+		<constructor-arg name="spec" value="oa:Fouille oa:a_decouvert oa:Mur" />
+	</bean>	
+	<bean class="fr.humanum.openarchaeo.federation.index.LuceneDocumentBuilder" factory-bean="luceneDocumentBuilderFactory" factory-method="newLuceneDocumentBuilder">
+		<constructor-arg name="spec" value="oa:Fouille oa:a_decouvert oa:Fait" />
+	</bean>	
+	<bean class="fr.humanum.openarchaeo.federation.index.LuceneDocumentBuilder" factory-bean="luceneDocumentBuilderFactory" factory-method="newLuceneDocumentBuilder">
+		<constructor-arg name="spec" value="oa:Fouille oa:a_decouvert oa:Entite_Archeologique" />
+	</bean>	
+	<bean class="fr.humanum.openarchaeo.federation.index.LuceneDocumentBuilder" factory-bean="luceneDocumentBuilderFactory" factory-method="newLuceneDocumentBuilder">
+		<constructor-arg name="spec" value="oa:Fouille oa:a_decouvert oa:US" />
+	</bean>	
+	
+	<!-- oa:trouve_lors -->
+	<bean class="fr.humanum.openarchaeo.federation.index.LuceneDocumentBuilder" factory-bean="luceneDocumentBuilderFactory" factory-method="newLuceneDocumentBuilder">
+		<constructor-arg name="spec" value="oa:Mobilier oa:trouve_lors oa:Fouille" />
+	</bean>	
+	<bean class="fr.humanum.openarchaeo.federation.index.LuceneDocumentBuilder" factory-bean="luceneDocumentBuilderFactory" factory-method="newLuceneDocumentBuilder">
+		<constructor-arg name="spec" value="oa:Sepulture oa:trouve_lors oa:Fouille" />
+	</bean>	
+	<bean class="fr.humanum.openarchaeo.federation.index.LuceneDocumentBuilder" factory-bean="luceneDocumentBuilderFactory" factory-method="newLuceneDocumentBuilder">
+		<constructor-arg name="spec" value="oa:Mur oa:trouve_lors oa:Fouille" />
+	</bean>	
+	<bean class="fr.humanum.openarchaeo.federation.index.LuceneDocumentBuilder" factory-bean="luceneDocumentBuilderFactory" factory-method="newLuceneDocumentBuilder">
+		<constructor-arg name="spec" value="oa:Fait oa:trouve_lors oa:Fouille" />
+	</bean>	
+	<bean class="fr.humanum.openarchaeo.federation.index.LuceneDocumentBuilder" factory-bean="luceneDocumentBuilderFactory" factory-method="newLuceneDocumentBuilder">
+		<constructor-arg name="spec" value="oa:Entite_Archeologique oa:trouve_lors oa:Fouille" />
+	</bean>	
+	<bean class="fr.humanum.openarchaeo.federation.index.LuceneDocumentBuilder" factory-bean="luceneDocumentBuilderFactory" factory-method="newLuceneDocumentBuilder">
+		<constructor-arg name="spec" value="oa:US oa:trouve_lors oa:Fouille" />
+	</bean>	
+	
+	<!-- oa:sest_deroulee_sur -->
+	<bean class="fr.humanum.openarchaeo.federation.index.LuceneDocumentBuilder" factory-bean="luceneDocumentBuilderFactory" factory-method="newLuceneDocumentBuilder">
+		<constructor-arg name="spec" value="oa:Fouille oa:sest_deroulee_sur oa:Site" />
+	</bean>	
+
+	<!-- oa:etudie_durant -->
+	<bean class="fr.humanum.openarchaeo.federation.index.LuceneDocumentBuilder" factory-bean="luceneDocumentBuilderFactory" factory-method="newLuceneDocumentBuilder">
+		<constructor-arg name="spec" value="oa:Site oa:etudie_durant oa:Fouille" />
+	</bean>	
+	
+	<!-- oa:documente_par -->
+	<bean class="fr.humanum.openarchaeo.federation.index.LuceneDocumentBuilder" factory-bean="luceneDocumentBuilderFactory" factory-method="newLuceneDocumentBuilder">
+		<constructor-arg name="spec" value="oa:Fouille oa:documente_par oa:Document" />
+	</bean>		
+	
+	<!-- oa:documente -->
+	<bean class="fr.humanum.openarchaeo.federation.index.LuceneDocumentBuilder" factory-bean="luceneDocumentBuilderFactory" factory-method="newLuceneDocumentBuilder">
+		<constructor-arg name="spec" value="oa:Document oa:documente oa:Fouille" />
+	</bean>	
+	
+	<!-- ***** / Les Fouilles ***** -->
+		
+	
 	<!-- date_de : pas d'indexation -->
 	<!-- trouve_a -->
 	<bean class="fr.humanum.openarchaeo.federation.index.LuceneDocumentBuilder" factory-bean="luceneDocumentBuilderFactory" factory-method="newLuceneDocumentBuilder">
@@ -193,7 +283,6 @@
 	<bean class="fr.humanum.openarchaeo.federation.index.LuceneDocumentBuilder" factory-bean="luceneDocumentBuilderFactory" factory-method="newLuceneDocumentBuilder">
 		<constructor-arg name="spec" value="oa:Mobilier oa:fait_partie_de oa:Fait" />
 	</bean>
-
 	<!-- entite_archeologique_est_compose_de -->
 	<bean class="fr.humanum.openarchaeo.federation.index.LuceneDocumentBuilder" factory-bean="luceneDocumentBuilderFactory" factory-method="newLuceneDocumentBuilder">
 		<constructor-arg name="spec" value="oa:Entite_Archeologique oa:entite_archeologique_est_compose_de oa:Sepulture" />
