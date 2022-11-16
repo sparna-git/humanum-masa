@@ -19,7 +19,7 @@
         <logback.version>1.2.3</logback.version>
         <spring.version>4.3.5.RELEASE</spring.version>
         <springsecurity.version>4.2.3.RELEASE</springsecurity.version>
-		<jackson.version>2.9.3</jackson.version>
+		<jackson.version>2.12.7.1</jackson.version>
 		<rdf4j.version>2.4.2</rdf4j.version>
 		<jena.version>3.8.0</jena.version>
 		<lucene.version>7.4.0</lucene.version>
