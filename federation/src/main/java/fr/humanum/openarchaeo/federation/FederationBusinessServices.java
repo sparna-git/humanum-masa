@@ -20,13 +20,22 @@ import org.apache.jena.query.QueryFactory;
 import org.apache.jena.query.Syntax;
 import org.eclipse.rdf4j.model.IRI;
 import org.eclipse.rdf4j.model.impl.SimpleValueFactory;
+import org.eclipse.rdf4j.query.BooleanQuery;
+import org.eclipse.rdf4j.query.MalformedQueryException;
+import org.eclipse.rdf4j.query.QueryEvaluationException;
 import org.eclipse.rdf4j.query.TupleQuery;
+import org.eclipse.rdf4j.query.TupleQueryResultHandlerException;
+import org.eclipse.rdf4j.query.resultio.BooleanQueryResultFormat;
+import org.eclipse.rdf4j.query.resultio.BooleanQueryResultWriter;
+import org.eclipse.rdf4j.query.resultio.BooleanQueryResultWriterFactory;
+import org.eclipse.rdf4j.query.resultio.BooleanQueryResultWriterRegistry;
 import org.eclipse.rdf4j.query.resultio.TupleQueryResultFormat;
 import org.eclipse.rdf4j.query.resultio.TupleQueryResultWriter;
 import org.eclipse.rdf4j.query.resultio.TupleQueryResultWriterFactory;
 import org.eclipse.rdf4j.query.resultio.TupleQueryResultWriterRegistry;
 import org.eclipse.rdf4j.repository.Repository;
 import org.eclipse.rdf4j.repository.RepositoryConnection;
+import org.eclipse.rdf4j.repository.RepositoryException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -121,16 +130,29 @@ public class FederationBusinessServices {
 			OutputStream out,
 			String mimeType
 	) throws IOException {
-		TupleQueryResultWriterRegistry registry = TupleQueryResultWriterRegistry.getInstance();
-		TupleQueryResultWriterFactory f = registry.get(
-				registry.getFileFormatForMIMEType(mimeType).orElse(TupleQueryResultFormat.SPARQL)
-		).orElse(registry.get(TupleQueryResultFormat.SPARQL).get());
-		
-		TupleQueryResultWriter writer = f.getWriter(out);
-		
-		try (RepositoryConnection conn = repository.getConnection()) {
-			TupleQuery q = conn.prepareTupleQuery(queryString);
-			q.evaluate(writer);
+		if(queryString.toLowerCase().substring(0, queryString.indexOf('{')).contains("ask")) {
+			BooleanQueryResultWriterRegistry registry = BooleanQueryResultWriterRegistry.getInstance();
+			BooleanQueryResultWriterFactory f = registry.get(
+					registry.getFileFormatForMIMEType(mimeType).orElse(BooleanQueryResultFormat.SPARQL)
+			).orElse(registry.get(BooleanQueryResultFormat.SPARQL).get());
+			
+			try (RepositoryConnection conn = repository.getConnection()) {
+				BooleanQuery q = conn.prepareBooleanQuery(queryString);				
+				BooleanQueryResultWriter writer = f.getWriter(out);
+				writer.write(q.evaluate());
+			}
+		} else {
+			TupleQueryResultWriterRegistry registry = TupleQueryResultWriterRegistry.getInstance();
+			TupleQueryResultWriterFactory f = registry.get(
+					registry.getFileFormatForMIMEType(mimeType).orElse(TupleQueryResultFormat.SPARQL)
+			).orElse(registry.get(TupleQueryResultFormat.SPARQL).get());
+			
+					
+			try (RepositoryConnection conn = repository.getConnection()) {
+				TupleQuery q = conn.prepareTupleQuery(queryString);
+				TupleQueryResultWriter writer = f.getWriter(out);
+				q.evaluate(writer);
+			}			
 		}
 	}
 	
